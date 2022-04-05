@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-function Input({createContact, currentContact, updateContact}) {
+function Input({createContact, currentContact, updateContact, deleteContact}) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,6 +49,9 @@ function Input({createContact, currentContact, updateContact}) {
         setPhone(e.target.value);
       }}></input><br />
       <button type="submit">{!currentContact ? 'Add Contact' : 'Update Contact'}</button>
+      {!currentContact ? null : <button type="button" onClick={() => {
+        deleteContact(currentContact.id)
+      }}>Delete Contact</button>}
     </form>
   )
 }

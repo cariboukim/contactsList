@@ -17,8 +17,8 @@ const PORT = 4000;
 
 app.get('/api/get', (req, res) => {
   readFile('contacts.txt', (err, data) => {
-    // console.log('GET request readFile', JSON.parse(data));
-    if (err) {
+    // console.log('GET request readFile', data.toString());
+    if (!data.toString()) {
       res.send([]);
     } else {
       res.send(JSON.parse(data));
@@ -74,7 +74,7 @@ app.delete('/api/delete', (req, res) => {
     writeFile('contacts.txt', JSON.stringify(body), (err) => {
       if (err) {console.error(err)}
       console.log('Contact has been deleted');
-      res.sendStatus(200)
+      res.sendStatus(200);
     })
   })
 })
