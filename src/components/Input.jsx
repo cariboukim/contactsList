@@ -22,14 +22,19 @@ function Input({createContact, currentContact, updateContact, deleteContact}) {
   return (
     <form onSubmit={(e) => {
       if (!currentContact) {
-        createContact(e, {
-          name,
-          email,
-          phone
-        });
-        setName('');
-        setEmail('');
-        setPhone('');
+        if (name === '' || email === '' || phone === '') {
+          e.preventDefault();
+          alert('Please fill in all of the information.');
+        } else {
+          createContact(e, {
+            name,
+            email,
+            phone
+          });
+          setName('');
+          setEmail('');
+          setPhone('');
+        }
       } else {
         updateContact(e, {
           name,

@@ -27,6 +27,7 @@ function App() {
     const post = async () => {
       try {
         const response = await axios.post('/api/post', contact);
+        // console.log(response);
         if (response.data.error === 409) {
           alert('Did you mean to update an existing contact?');
         } else {
