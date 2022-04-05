@@ -15,8 +15,7 @@ function App() {
 
   const getRequest = async () => {
     try {
-      const result = await axios.get('http://localhost:4000/api/get');
-      // console.log('in async GET', result.data);
+      const result = await axios.get('/api/get');
       setContacts(result.data);
     } catch (e) {
       console.error(e);
@@ -25,10 +24,9 @@ function App() {
 
   const createContact = (e, contact) => {
     e.preventDefault();
-    console.log('on addContact click', contact);
     const post = async () => {
       try {
-        await axios.post('http://localhost:4000/api/post', contact);
+        await axios.post('/api/post', contact);
         getRequest();
       } catch (e) {
         console.error(e);
@@ -39,7 +37,6 @@ function App() {
   }
 
   const editContact = (contact) => {
-    console.log('name clicked', contact);
     setAdd(false);
     setCurrentContact(contact);
   }
@@ -48,7 +45,7 @@ function App() {
     e.preventDefault();
     const update = async () => {
       try {
-        await axios.put('http://localhost:4000/api/update', contact)
+        await axios.put('/api/update', contact)
         getRequest();
       } catch (e) {
         console.error(e);
@@ -64,7 +61,6 @@ function App() {
         <button onClick={() => {
           setAdd(!add);
           setCurrentContact(null);
-          console.log('on Add Contact click', add);
         }}>Add Contact</button>
         <List contacts={contacts} editContact={editContact}/>
       </div>
