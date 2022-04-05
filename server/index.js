@@ -17,7 +17,7 @@ const PORT = 4000;
 
 app.get('/api/get', (req, res) => {
   readFile('contacts.txt', (err, data) => {
-    // console.log('GET request readFile', data.toString());
+    if (err) {console.error(err)}
     if (!data.toString()) {
       res.send([]);
     } else {
@@ -27,21 +27,32 @@ app.get('/api/get', (req, res) => {
 })
 
 app.post('/api/post', (req, res) => {
-  // console.log('serverside POST request', req.body);
   readFile('contacts.txt', (err, data) => {
-    if (err) {
-      writeFile('contacts.txt', JSON.stringify([req.body]), (err) => {
-        if (err) {console.error(err)}
-        console.log('Contact has been created!')
-        res.sendStatus(201);
-      })
+
+    const duplicate = JSON.parse(data).find(contact => {
+      return (
+        contact.name === req.body.name || contact.email === req.body.email || contact.phone === req.body.phone
+      )
+    });
+
+    if (duplicate) {
+      console.log('Duplicate found!');
+      res.send({error: 409})
     } else {
-      const body = !data.toString() ? [req.body] : [...JSON.parse(data), req.body];
-      writeFile('contacts.txt', JSON.stringify(body), (err) => {
-        if (err) {console.error(err)}
-        console.log('Contact has been created!');
-        res.sendStatus(201);
-      })
+      if (err) {
+        writeFile('contacts.txt', JSON.stringify([req.body]), (err) => {
+          if (err) {console.error(err)}
+          console.log('Contact has been created!')
+          res.sendStatus(201);
+        })
+      } else {
+        const body = !data.toString() ? [req.body] : [...JSON.parse(data), req.body];
+        writeFile('contacts.txt', JSON.stringify(body), (err) => {
+          if (err) {console.error(err)}
+          console.log('Contact has been created!');
+          res.sendStatus(201);
+        })
+      }
     }
   });
 })
@@ -66,7 +77,6 @@ app.put('/api/update', (req, res) => {
 })
 
 app.delete('/api/delete', (req, res) => {
-  console.log('in DELETE request', req.query);
   readFile('contacts.txt', (err, data) => {
     if (err) {console.error(err)}
     const body = JSON.parse(data);

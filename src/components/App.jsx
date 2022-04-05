@@ -26,8 +26,12 @@ function App() {
     e.preventDefault();
     const post = async () => {
       try {
-        await axios.post('/api/post', contact);
-        getRequest();
+        const response = await axios.post('/api/post', contact);
+        if (response.data.error === 409) {
+          alert('Did you mean to update an existing contact?');
+        } else {
+          getRequest();
+        }
       } catch (e) {
         console.error(e);
       }
@@ -45,8 +49,8 @@ function App() {
     e.preventDefault();
     const update = async () => {
       try {
-        await axios.put('/api/update', contact)
-        getRequest();
+       await axios.put('/api/update', contact)
+       getRequest();
       } catch (e) {
         console.error(e);
       }
