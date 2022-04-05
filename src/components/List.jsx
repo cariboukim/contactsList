@@ -5,7 +5,7 @@ function List({contacts, editContact, deleteContact}) {
 
   return (
     <div>
-      {!contacts?
+      {contacts.length === 0 ?
       <span>Add contacts to list!</span>
       :
       contacts.map((contact, id) => (

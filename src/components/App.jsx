@@ -60,6 +60,8 @@ function App() {
       try {
         await axios.delete(`api/delete?id=${id}`);
         getRequest();
+        setCurrentContact(null);
+        setAdd(false);
       } catch (e) {
         console.error(e);
       }
@@ -78,7 +80,7 @@ function App() {
         <List contacts={contacts} editContact={editContact} deleteContact={deleteContact}/>
       </div>
       <div className="right">
-        {add || currentContact ? <Input createContact={createContact} currentContact={currentContact} updateContact={updateContact}/> : null}
+        {add || currentContact ? <Input createContact={createContact} currentContact={currentContact} updateContact={updateContact} deleteContact={deleteContact}/> : null}
       </div>
     </div>
   )
