@@ -27,6 +27,9 @@ function Input({createContact, currentContact, updateContact}) {
           email,
           phone
         });
+        setName('');
+        setEmail('');
+        setPhone('');
       } else {
         updateContact(e, {
           name,
@@ -35,7 +38,7 @@ function Input({createContact, currentContact, updateContact}) {
           id: currentContact.id
         })
       }
-    }}>
+    }} id="iu">
       <input type="text" placeholder="Name" value={name} onChange={(e) => {
         setName(e.target.value);
       }}></input><br />

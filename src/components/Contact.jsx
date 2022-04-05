@@ -1,17 +1,19 @@
 import React from 'react';
 
-function Contact({contact, id, editContact}) {
+function Contact({contact, id, editContact, deleteContact}) {
   return (
-    <div onClick={() => {
-      editContact({
-        name: contact.name,
-        email: contact.email,
-        phone: contact.phone,
-        id
-      });
-    }}>
-      {contact.name}
-      <button></button>
+    <div>
+      <span onClick={() => {
+        editContact({
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone,
+          id
+        });
+      }}>{contact.name}</span>
+      <button onClick={() => {
+        deleteContact(id);
+      }}>X</button>
     </div>
   )
 }

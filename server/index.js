@@ -65,6 +65,20 @@ app.put('/api/update', (req, res) => {
   })
 })
 
+app.delete('/api/delete', (req, res) => {
+  console.log('in DELETE request', req.query);
+  readFile('contacts.txt', (err, data) => {
+    if (err) {console.error(err)}
+    const body = JSON.parse(data);
+    body.splice(req.query.id, 1);
+    writeFile('contacts.txt', JSON.stringify(body), (err) => {
+      if (err) {console.error(err)}
+      console.log('Contact has been deleted');
+      res.sendStatus(200)
+    })
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Connected to ${PORT}`);
 })
