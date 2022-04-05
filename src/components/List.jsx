@@ -3,8 +3,6 @@ import Contact from './Contact.jsx';
 
 function List({contacts, editContact}) {
 
-  // console.log('in List', contacts);
-
   return (
     <div>
       {!contacts?

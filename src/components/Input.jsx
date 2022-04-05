@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 
 function Input({createContact, currentContact, updateContact}) {
 
-  // const [create, setCreate] = useState(true);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');

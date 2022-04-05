@@ -47,7 +47,6 @@ app.post('/api/post', (req, res) => {
 })
 
 app.put('/api/update', (req, res) => {
-  console.log('server PUT request', req.body);
   readFile('contacts.txt', (err, data) => {
     if (err) {console.error(err)}
     const contact = {
